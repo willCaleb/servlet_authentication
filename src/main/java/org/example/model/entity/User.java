@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @Table(name = "auth_user")
 @Entity
-public class User {
+public class User extends AbstractEntity{
 
     @Id
     @GeneratedValue

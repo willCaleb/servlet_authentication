@@ -1,11 +1,15 @@
 package org.example.model.bean;
 
 import lombok.Data;
+import org.example.model.dto.AbstractDTO;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
-public class UserAuthBean {
+public class UserAuthBean extends AbstractDTO {
+
+    private UUID id;
 
     private String username;
 

@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @Personal
 @Table(name = "tasks")
-public class Task {
+public class Task extends AbstractEntity{
 
     @Id
     @GeneratedValue

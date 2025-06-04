@@ -11,14 +11,16 @@ import javax.servlet.DispatcherType;
 import javax.servlet.annotation.WebServlet;
 import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 
 public class ServletContextResolver extends ServletContextHandler {
 
     public ServletContextResolver() {
         super(ServletContextHandler.SESSIONS);
+        addAllServlet();
     }
 
-    public ServletContextResolver addAllServlet() {
+    private void addAllServlet() {
 
         Reflections reflections = new Reflections(CreateUserServlet.class.getPackage().getName());
 
@@ -28,16 +30,16 @@ public class ServletContextResolver extends ServletContextHandler {
                 .stream()
                 .filter(servlet -> servlet.isAnnotationPresent(WebServlet.class))
                 .forEach(servlet -> {
-                    String path = Arrays.stream(servlet.getAnnotation(WebServlet.class).urlPatterns()).findFirst().orElse(null);
-                    if (Utils.isNotEmpty(path)) {
+                    List<String> paths = Arrays.asList(servlet.getAnnotation(WebServlet.class).urlPatterns());
 
-                        addServlet(servlet, path);
-
-                    }
+                    paths.forEach(path -> {
+                        if (Utils.isNotEmpty(path)) {
+                            addServlet(servlet, path);
+                        }
+                    });
                 });
         addFilter(AuthFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
 
-        return this;
     }
 
 }

@@ -16,7 +16,7 @@ import java.util.UUID;
 @Entity
 @Personal
 @Table(name = "comments")
-public class Comments {
+public class Comment extends AbstractEntity{
 
     @Id
     @GeneratedValue

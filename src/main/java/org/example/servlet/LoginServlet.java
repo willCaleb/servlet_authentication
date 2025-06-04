@@ -32,11 +32,15 @@ public class LoginServlet extends AbstractServlet {
 
             UserAuthBean authBean = createAuthBean(userManaged);
 
-            resp.getWriter().write(authBean.toString());
+            write(resp, authBean);
 
             return;
         }
         throw new RuntimeException("Usuario não encontrado");
+    }
+
+    private static void write(HttpServletResponse resp, UserAuthBean authBean) throws IOException {
+        resp.getWriter().write(authBean.toString());
     }
 
     private UserAuthBean createAuthBean(User userManaged) {

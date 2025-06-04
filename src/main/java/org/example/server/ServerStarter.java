@@ -10,7 +10,7 @@ public class ServerStarter {
         try {
             Server server = new Server(7272);
 
-            server.setHandler(new ServletContextResolver().addAllServlet());
+            server.setHandler(new ServletContextResolver());
 
             server.setErrorHandler(new CustomErrorHandler());
 
